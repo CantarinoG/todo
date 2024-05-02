@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sqflit_playground/models/task.dart';
 
 class TaskFormScreen extends StatelessWidget {
-  const TaskFormScreen({super.key});
+  Task? task;
+  TaskFormScreen({super.key, this.task});
 
   @override
   Widget build(BuildContext context) {

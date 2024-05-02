@@ -2,14 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflit_playground/models/task.dart';
 import 'package:sqflit_playground/providers/task_provider.dart';
+import 'package:sqflit_playground/screens/task_form_screen.dart';
 
 class TaskTile extends StatelessWidget {
   final Task task;
   const TaskTile(this.task, {super.key});
 
-  void _onChecked(context) {
+  void _onCheck(context) {
     task.toggleCompleted();
     Provider.of<TaskProvider>(context, listen: false).updateTask(task);
+  }
+
+  void _onDelete(context) {
+    Provider.of<TaskProvider>(context, listen: false).deleteTask(task.id);
+  }
+
+  void _onUpdate(context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TaskFormScreen(task: task),
+      ),
+    );
   }
 
   @override
@@ -32,17 +46,21 @@ class TaskTile extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  _onChecked(context);
+                  _onCheck(context);
                 },
                 icon: Icon(Icons.check),
               ),
               IconButton(
                 icon: Icon(Icons.edit),
-                onPressed: () {},
+                onPressed: () {
+                  _onUpdate(context);
+                },
               ),
               IconButton(
                 icon: Icon(Icons.delete),
-                onPressed: () {},
+                onPressed: () {
+                  _onDelete(context);
+                },
               ),
             ],
           ),
