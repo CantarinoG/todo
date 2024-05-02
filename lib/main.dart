@@ -7,7 +7,7 @@ import 'package:sqflit_playground/providers/task_provider.dart';
 import 'package:sqflit_playground/screens/home_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -19,11 +19,11 @@ class MyApp extends StatelessWidget {
       future: DatabaseHelper.instance.database,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (snapshot.error != null) {
-          return Center(
+          return const Center(
             child: Text("Ocorreu algum erro!"),
           );
         } else {

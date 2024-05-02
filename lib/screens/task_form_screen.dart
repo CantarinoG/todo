@@ -36,32 +36,32 @@ class TaskFormScreen extends StatelessWidget {
     String description = "";
     return Scaffold(
       appBar: AppBar(
-        title: Text("ToDo Form"),
+        title: const Text("ToDo Form"),
         backgroundColor: Colors.lightBlue[100],
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             Expanded(
               child: Column(
                 children: [
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Title'),
+                    decoration: const InputDecoration(labelText: 'Title'),
                     onChanged: (value) {
                       title = value;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Description'),
+                    decoration: const InputDecoration(labelText: 'Description'),
                     onChanged: (value) {
                       description = value;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                 ],

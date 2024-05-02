@@ -29,7 +29,7 @@ class TaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Container(
         color: Colors.blueGrey[50],
         child: ListTile(
@@ -48,16 +48,16 @@ class TaskTile extends StatelessWidget {
                 onPressed: () {
                   _onCheck(context);
                 },
-                icon: Icon(Icons.check),
+                icon: const Icon(Icons.check),
               ),
               IconButton(
-                icon: Icon(Icons.edit),
+                icon: const Icon(Icons.edit),
                 onPressed: () {
                   _onUpdate(context);
                 },
               ),
               IconButton(
-                icon: Icon(Icons.delete),
+                icon: const Icon(Icons.delete),
                 onPressed: () {
                   _onDelete(context);
                 },

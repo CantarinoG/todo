@@ -28,14 +28,14 @@ class HomeScreen extends StatelessWidget {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text("ToDo"),
+        title: const Text("ToDo"),
         backgroundColor: Colors.lightBlue[100],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           onFabPressed(context);
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       body: ListView.builder(
         itemCount: tasks.length,
