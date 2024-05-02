@@ -8,16 +8,16 @@ class TaskTile extends StatelessWidget {
   final Task task;
   const TaskTile(this.task, {super.key});
 
-  void _onCheck(context) {
+  void _onCheck(BuildContext context) {
     task.toggleCompleted();
     Provider.of<TaskProvider>(context, listen: false).updateTask(task);
   }
 
-  void _onDelete(context) {
+  void _onDelete(BuildContext context) {
     Provider.of<TaskProvider>(context, listen: false).deleteTask(task.id);
   }
 
-  void _onUpdate(context) {
+  void _onUpdate(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(

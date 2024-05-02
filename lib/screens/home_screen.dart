@@ -6,9 +6,10 @@ import 'package:sqflit_playground/screens/task_form_screen.dart';
 import 'package:sqflit_playground/widgets/task_tile.dart';
 
 class HomeScreen extends StatelessWidget {
+  bool fetchedData = false;
   HomeScreen({super.key});
 
-  void onFabPressed(context) {
+  void onFabPressed(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -19,10 +20,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Task> tasks = [];
     TaskProvider provider = Provider.of<TaskProvider>(context);
-    tasks = provider.tasks;
-    if (tasks.isEmpty) {
+    List<Task> tasks = provider.tasks;
+    if (!fetchedData) {
+      fetchedData = true;
       provider.loadTasks();
     }
     return Scaffold(

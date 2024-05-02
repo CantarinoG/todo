@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sqflit_playground/data/database_helper.dart';
+import 'package:sqflit_playground/data/task_dao.dart';
+import 'package:sqflit_playground/providers/id_provider.dart';
+import 'package:sqflit_playground/providers/task_provider.dart';
+import 'package:sqflit_playground/screens/home_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -9,17 +15,36 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'sqflite Playground',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: Center(
-        child: Text(
-          "Hello World",
-        ),
-      ),
+    return FutureBuilder(
+      future: DatabaseHelper.instance.database,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.error != null) {
+          return Center(
+            child: Text("Ocorreu algum erro!"),
+          );
+        } else {
+          final database = snapshot.data!;
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                  create: (ctx) => TaskProvider(TaskDAO(database))),
+              ChangeNotifierProvider(create: (ctx) => IdProvider()),
+            ],
+            child: MaterialApp(
+              title: 'sqflite Playground',
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+                useMaterial3: true,
+              ),
+              home: HomeScreen(),
+            ),
+          );
+        }
+      },
     );
   }
 }

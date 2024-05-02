@@ -1,10 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:sqflit_playground/models/task.dart';
+import 'package:sqflit_playground/providers/id_provider.dart';
+import 'package:sqflit_playground/providers/task_provider.dart';
 
 class TaskFormScreen extends StatelessWidget {
   Task? task;
   TaskFormScreen({super.key, this.task});
+
+  void _onSubmit(BuildContext context, String title, String description) async {
+    final TaskProvider provider =
+        Provider.of<TaskProvider>(context, listen: false);
+    if (task == null) {
+      //Adding
+      final int uniqueId =
+          Provider.of<IdProvider>(context, listen: false).generate();
+      final Task newTask = Task(
+          id: uniqueId, title: title, description: description, isCompleted: 0);
+      await provider.addTask(newTask);
+    } else {
+      //Updating
+      final Task updatedTask = Task(
+          id: task!.id,
+          title: title,
+          description: description,
+          isCompleted: task!.isCompleted);
+      await provider.updateTask(updatedTask);
+    }
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +71,9 @@ class TaskFormScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      _onSubmit(context, title, description);
+                    },
                     icon: const Icon(Icons.check),
                     label: const Text("Confirmar"),
                     style: ButtonStyle(
