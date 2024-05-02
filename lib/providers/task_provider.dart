@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sqflit_playground/data/task_dao.dart';
+import 'package:sqflit_playground/data/dao.dart';
 import 'package:sqflit_playground/models/task.dart';
 
 class TaskProvider with ChangeNotifier {
-  final TaskDAO _taskDAO;
+  final Dao<Task> _taskDAO;
   List<Task> tasks = [];
 
   TaskProvider(this._taskDAO);
@@ -19,12 +19,12 @@ class TaskProvider with ChangeNotifier {
   }
 
   Future<void> updateTask(Task task) async {
-    await _taskDAO.updateTask(task);
+    await _taskDAO.update(task);
     await loadTasks();
   }
 
   Future<void> deleteTask(int id) async {
-    await _taskDAO.deleteTask(id);
+    await _taskDAO.delete(id);
     await loadTasks();
   }
 }

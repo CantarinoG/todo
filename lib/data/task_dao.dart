@@ -1,13 +1,15 @@
+import 'package:sqflit_playground/data/dao.dart';
 import 'package:sqflit_playground/data/database_helper.dart';
 import 'package:sqflit_playground/models/task.dart';
 import 'package:sqflite/sqflite.dart';
 
-class TaskDAO {
+class TaskDAO implements Dao<Task> {
   final DatabaseHelper databaseHelper;
   static const tableName = "tasks";
 
   TaskDAO(this.databaseHelper);
 
+  @override
   Future<int> insert(Task task) async {
     final database = await databaseHelper.database;
     return await database.insert(
@@ -17,13 +19,15 @@ class TaskDAO {
     );
   }
 
+  @override
   Future<List<Task>> readAll() async {
     final database = await databaseHelper.database;
     final maps = await database.query(tableName);
     return List.generate(maps.length, (i) => Task.fromMap(maps[i]));
   }
 
-  Future<int> updateTask(Task task) async {
+  @override
+  Future<int> update(Task task) async {
     final database = await databaseHelper.database;
     return await database.update(
       tableName,
@@ -33,7 +37,8 @@ class TaskDAO {
     );
   }
 
-  Future<int> deleteTask(int id) async {
+  @override
+  Future<int> delete(int id) async {
     final database = await databaseHelper.database;
     return await database.delete(
       tableName,
