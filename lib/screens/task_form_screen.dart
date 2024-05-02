@@ -22,8 +22,8 @@ class TaskFormScreen extends StatelessWidget {
       //Updating
       final Task updatedTask = Task(
           id: task!.id,
-          title: title,
-          description: description,
+          title: title.isNotEmpty ? title : task!.title,
+          description: description.isNotEmpty ? description : task!.description,
           isCompleted: task!.isCompleted);
       await provider.updateTask(updatedTask);
     }
@@ -47,6 +47,7 @@ class TaskFormScreen extends StatelessWidget {
               child: Column(
                 children: [
                   TextFormField(
+                    initialValue: task?.title,
                     decoration: const InputDecoration(labelText: 'Title'),
                     onChanged: (value) {
                       title = value;
@@ -56,6 +57,7 @@ class TaskFormScreen extends StatelessWidget {
                     height: 8,
                   ),
                   TextFormField(
+                    initialValue: task?.description,
                     decoration: const InputDecoration(labelText: 'Description'),
                     onChanged: (value) {
                       description = value;
