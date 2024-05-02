@@ -2,10 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflit_playground/models/task.dart';
 import 'package:sqflit_playground/providers/task_provider.dart';
+import 'package:sqflit_playground/screens/task_form_screen.dart';
 import 'package:sqflit_playground/widgets/task_tile.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
+
+  void onFabPressed(context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TaskFormScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +31,9 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.lightBlue[100],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          onFabPressed(context);
+        },
         child: Icon(Icons.add),
       ),
       body: ListView.builder(
