@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sqflit_playground/data/database_helper.dart';
+import 'package:sqflit_playground/data/sqflite_database_helper.dart';
 import 'package:sqflit_playground/data/task_dao.dart';
 import 'package:sqflit_playground/providers/id_provider.dart';
 import 'package:sqflit_playground/providers/task_provider.dart';
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: DatabaseHelper.instance.database,
+      future: SqfliteDatabaseHelper.instance.database,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
