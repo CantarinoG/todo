@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sqflit_playground/models/task.dart';
+import 'package:sqflit_playground/providers/task_provider.dart';
 
 class TaskTile extends StatelessWidget {
   final Task task;
   const TaskTile(this.task, {super.key});
+
+  void _onChecked(context) {
+    task.toggleCompleted();
+    Provider.of<TaskProvider>(context, listen: false).updateTask(task);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +31,9 @@ class TaskTile extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  _onChecked(context);
+                },
                 icon: Icon(Icons.check),
               ),
               IconButton(

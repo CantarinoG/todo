@@ -2,13 +2,21 @@ class Task {
   final int id;
   final String title;
   final String description;
-  final int isCompleted;
+  int isCompleted;
 
   Task(
       {required this.id,
       required this.title,
       required this.description,
       required this.isCompleted});
+
+  void toggleCompleted() {
+    if (isCompleted == 0) {
+      isCompleted = 1;
+    } else {
+      isCompleted = 0;
+    }
+  }
 
   static Task fromMap(Map<String, dynamic> map) {
     return Task(
