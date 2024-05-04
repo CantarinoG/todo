@@ -20,8 +20,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String tableName = "tasks";
     DatabaseHelper dbHelper = SqfliteDatabaseHelper.instance;
-    Dao<Task> taskDao = TaskDAO(dbHelper);
+    Dao<Task> taskDao = TaskDAO(dbHelper, tableName);
     IdProvider idProvider = IdProviderDt();
     ObjectProvider<Task> taskProvider = TaskProvider(taskDao);
 

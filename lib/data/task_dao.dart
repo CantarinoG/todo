@@ -5,9 +5,9 @@ import 'package:sqflite/sqflite.dart';
 
 class TaskDAO implements Dao<Task> {
   final DatabaseHelper databaseHelper;
-  static const tableName = "tasks";
+  final String tableName;
 
-  TaskDAO(this.databaseHelper);
+  TaskDAO(this.databaseHelper, this.tableName);
 
   @override
   Future<int> insert(Task task) async {
