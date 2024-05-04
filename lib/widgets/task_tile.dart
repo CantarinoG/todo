@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflit_playground/models/task.dart';
+import 'package:sqflit_playground/providers/object_provider.dart';
 import 'package:sqflit_playground/providers/task_provider.dart';
 import 'package:sqflit_playground/screens/task_form_screen.dart';
 
@@ -10,11 +11,13 @@ class TaskTile extends StatelessWidget {
 
   void _onCheck(BuildContext context) {
     task.toggleCompleted();
-    Provider.of<TaskProvider>(context, listen: false).updateTask(task);
+    Provider.of<ObjectProvider<Task>>(context, listen: false)
+        .updateObject(task);
   }
 
   void _onDelete(BuildContext context) {
-    Provider.of<TaskProvider>(context, listen: false).deleteTask(task.id);
+    Provider.of<ObjectProvider<Task>>(context, listen: false)
+        .deleteObject(task.id);
   }
 
   void _onUpdate(BuildContext context) {

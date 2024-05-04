@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflit_playground/models/task.dart';
 import 'package:sqflit_playground/providers/id_provider.dart';
+import 'package:sqflit_playground/providers/object_provider.dart';
 import 'package:sqflit_playground/providers/task_provider.dart';
 
 class TaskFormScreen extends StatelessWidget {
@@ -9,15 +10,15 @@ class TaskFormScreen extends StatelessWidget {
   TaskFormScreen({super.key, this.task});
 
   void _onSubmit(BuildContext context, String title, String description) async {
-    final TaskProvider provider =
-        Provider.of<TaskProvider>(context, listen: false);
+    final ObjectProvider<Task> provider =
+        Provider.of<ObjectProvider<Task>>(context, listen: false);
     if (task == null) {
       //Adding
       final int uniqueId =
           Provider.of<IdProvider>(context, listen: false).generate();
       final Task newTask = Task(
           id: uniqueId, title: title, description: description, isCompleted: 0);
-      await provider.addTask(newTask);
+      await provider.addObject(newTask);
     } else {
       //Updating
       final Task updatedTask = Task(
@@ -25,7 +26,7 @@ class TaskFormScreen extends StatelessWidget {
           title: title.isNotEmpty ? title : task!.title,
           description: description.isNotEmpty ? description : task!.description,
           isCompleted: task!.isCompleted);
-      await provider.updateTask(updatedTask);
+      await provider.updateObject(updatedTask);
     }
     Navigator.pop(context);
   }

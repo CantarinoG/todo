@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflit_playground/models/task.dart';
-import 'package:sqflit_playground/providers/task_provider.dart';
+import 'package:sqflit_playground/providers/object_provider.dart';
 import 'package:sqflit_playground/screens/task_form_screen.dart';
 import 'package:sqflit_playground/widgets/task_tile.dart';
 
@@ -20,11 +20,11 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TaskProvider provider = Provider.of<TaskProvider>(context);
-    List<Task> tasks = provider.tasks;
+    ObjectProvider<Task> provider = Provider.of<ObjectProvider<Task>>(context);
+    List<Task> tasks = provider.objects;
     if (!fetchedData) {
       fetchedData = true;
-      provider.loadTasks();
+      provider.loadObjects();
     }
     return Scaffold(
       appBar: AppBar(

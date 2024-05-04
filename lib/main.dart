@@ -7,6 +7,7 @@ import 'package:sqflit_playground/data/task_dao.dart';
 import 'package:sqflit_playground/models/task.dart';
 import 'package:sqflit_playground/providers/id_provider.dart';
 import 'package:sqflit_playground/providers/id_provider_dt.dart';
+import 'package:sqflit_playground/providers/object_provider.dart';
 import 'package:sqflit_playground/providers/task_provider.dart';
 import 'package:sqflit_playground/screens/home_screen.dart';
 
@@ -22,10 +23,11 @@ class MyApp extends StatelessWidget {
     DatabaseHelper dbHelper = SqfliteDatabaseHelper.instance;
     Dao<Task> taskDao = TaskDAO(dbHelper);
     IdProvider idProvider = IdProviderDt();
+    ObjectProvider<Task> taskProvider = TaskProvider(taskDao);
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (ctx) => TaskProvider(taskDao)),
+        ChangeNotifierProvider(create: (ctx) => taskProvider),
         ChangeNotifierProvider(create: (ctx) => idProvider),
       ],
       child: MaterialApp(

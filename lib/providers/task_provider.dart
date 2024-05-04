@@ -1,30 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:sqflit_playground/data/dao.dart';
 import 'package:sqflit_playground/models/task.dart';
+import 'package:sqflit_playground/providers/object_provider.dart';
 
-class TaskProvider with ChangeNotifier {
+class TaskProvider with ChangeNotifier implements ObjectProvider<Task> {
   final Dao<Task> _taskDAO;
   List<Task> tasks = [];
 
   TaskProvider(this._taskDAO);
 
-  Future<void> loadTasks() async {
+  @override
+  List<Task> get objects {
+    return tasks;
+  }
+
+  @override
+  Future<void> loadObjects() async {
     tasks = await _taskDAO.readAll();
     notifyListeners();
   }
 
-  Future<void> addTask(Task task) async {
+  @override
+  Future<void> addObject(Task task) async {
     await _taskDAO.insert(task);
-    await loadTasks();
+    await loadObjects();
   }
 
-  Future<void> updateTask(Task task) async {
+  @override
+  Future<void> updateObject(Task task) async {
     await _taskDAO.update(task);
-    await loadTasks();
+    await loadObjects();
   }
 
-  Future<void> deleteTask(int id) async {
+  @override
+  Future<void> deleteObject(int id) async {
     await _taskDAO.delete(id);
-    await loadTasks();
+    await loadObjects();
   }
 }
