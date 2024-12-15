@@ -1,16 +1,42 @@
-# sqflit_playground
+# Flutter SQLite Todo App
 
-A new Flutter project.
+A Flutter application demonstrating CRUD operations using SQLite database with a clean architecture approach.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Create, Read, Update, and Delete todo tasks
+- Mark tasks as complete/incomplete
+- Persistent storage using SQLite
+- Clean architecture with Provider pattern
+- Generic DAO implementation
 
-A few resources to get you started if this is your first Flutter project:
+## Architecture
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+The application follows a clean architecture pattern with the following components:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Data Layer
+- `DatabaseHelper`: Abstract interface for database operations
+- `SqfliteDatabaseHelper`: SQLite implementation of DatabaseHelper
+- `Dao`: Generic Data Access Object interface
+- `TaskDAO`: Implementation of Dao for Task entities
+
+### Models
+- `Task`: Data model representing a todo task
+
+### Providers
+- `IdProvider`: Interface for generating unique IDs
+- `IdProviderDt`: DateTime-based implementation of IdProvider
+- `ObjectProvider`: Generic provider interface for CRUD operations
+- `TaskProvider`: Implementation of ObjectProvider for Task entities
+
+### UI
+- `HomeScreen`: Main screen displaying list of tasks
+- `TaskFormScreen`: Form for creating/editing tasks
+- `TaskTile`: Widget for displaying individual tasks
+
+## Usage
+
+- Tap the floating action button to add a new task
+- Tap the check icon to toggle task completion
+- Tap the edit icon to modify a task
+- Tap the delete icon to remove a task
